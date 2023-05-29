@@ -1,0 +1,15 @@
+main {
+  background: #f5f5f5;
+  padding: 60px 40px 80px;
+  display: grid;
+  justify-items: center;
+  row-gap: 100px;
+}
+
+@media screen and (max-width: 780px) {
+  main {
+    padding: 80px 15px 48px;
+    row-gap: 48px;
+  }
+}
+

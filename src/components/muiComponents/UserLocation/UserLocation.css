@@ -1,0 +1,39 @@
+.location-wrapper {
+  position: relative;
+}
+
+.location-list {
+  list-style: none;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  position: absolute;
+  top: 45px;
+  z-index: 3;
+  background: white;
+  width: 100%;
+}
+
+.location-list>li {
+  padding: 10px 20px;
+}
+.location-list>li:first-child:hover {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.location-list>li:last-child:hover {
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.location-list > li:hover {
+  background-color: #e7e9ee;
+}

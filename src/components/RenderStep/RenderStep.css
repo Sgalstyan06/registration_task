@@ -1,0 +1,37 @@
+.step-icons-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.input-wrapper {
+  padding: 0 10px;
+  margin-top: 40px;
+}
+
+.select-age-wrapper {
+  display: grid;
+  grid-template-columns: 2fr 3fr 2.4fr;
+  gap: 16px;
+}
+
+.sub-title {
+  font-family: "Public Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #b2b3b5;
+  margin: 6px 0 16px;
+}
+
+@media screen and (max-width: 780px) {
+  .select-age-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .input-wrapper{
+    padding: 0;
+  }
+}
+
+

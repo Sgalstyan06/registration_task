@@ -1,0 +1,46 @@
+.copyRight {
+  width: 100%;
+  text-align: center;
+  border-top: 2px solid #e5e8eb;
+  padding: 24px 0 28px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.footer-info {
+  text-align: center;
+  padding-bottom: 40px;
+}
+
+
+.footer-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0 32px;
+}
+@media screen and (max-width: 510px){
+  
+footer {
+  padding: 0 16px;
+}
+  .footer-logo {
+    padding: 28px 0 25px;
+  }
+
+  .footer-logo img {
+    width: 202px;
+  }
+  
+  .footer-info{
+    padding-bottom: 40px;
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+  .copyRight {
+    padding: 18px 0 24px;
+  }
+
+}

@@ -144,7 +144,7 @@ export default function Form() {
             }}
             disabled={!!successRegistration}
           >
-            Next
+          {step === STEPS.CONFIRMATION_STEP ? "Complete" : "Next"}  
           </Button>
 
           <Button

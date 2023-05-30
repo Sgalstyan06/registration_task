@@ -14,12 +14,15 @@
 }
 
 @media screen and (max-width: 780px) {
+  
   .form-section {
     padding: 24px 16px;
   }
+
   .button-wrapper {
     padding: 0;
   }
+
   .logo-wrapper img {
     width: 202px;
     height: 32px;

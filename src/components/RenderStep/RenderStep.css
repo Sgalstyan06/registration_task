@@ -26,6 +26,7 @@
 }
 
 @media screen and (max-width: 780px) {
+  
   .select-age-wrapper {
     grid-template-columns: 1fr;
   }

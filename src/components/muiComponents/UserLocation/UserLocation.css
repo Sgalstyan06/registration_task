@@ -16,6 +16,7 @@
 .location-list>li {
   padding: 10px 20px;
 }
+
 .location-list>li:first-child:hover {
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
@@ -34,6 +35,6 @@
   display: none;
 }
 
-.location-list > li:hover {
+.location-list >li:hover {
   background-color: #e7e9ee;
 }

@@ -5,9 +5,16 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
+const makeStyle = {
+  fontFamily: "Public Sans",
+  fontStyle: "normal",
+  fontWeight: "400",
+  fontSize: "18px",
+  lineHeight: "26px",
+  color: "#212B36",
+};
 
-
-export default function SelectAge({ label, options, control, errors, currentYear }) {
+export default function SelectAge({ label, options, control, currentYear }) {
   
   return (
     <>
@@ -20,12 +27,7 @@ export default function SelectAge({ label, options, control, errors, currentYear
           },
           ".MuiSelect-select": {
             padding: "10px 0 10px 24px",
-            fontFamily: "Public Sans",
-            fontStyle: "normal",
-            fontWeight: "400",
-            fontSize: "18px",
-            lineHeight: "26px",
-            color: "#212B36",
+            ...makeStyle,
           },
         }}
       >
@@ -34,12 +36,7 @@ export default function SelectAge({ label, options, control, errors, currentYear
           sx={{
             left: "5px",
             top: "-7px",
-            fontFamily: "Public Sans",
-            fontStyle: "normal",
-            fontWeight: "400",
-            fontSize: "18px",
-            lineHeight: "26px",
-            color: "#212B36",
+            ...makeStyle,
             transformOrigin: "-20px 25px",
           }}
         >
@@ -51,12 +48,16 @@ export default function SelectAge({ label, options, control, errors, currentYear
           rules={{
             required: {
               value: true,
-              message: `please select your birtday ${label}`
+              message: `please select your birtday ${label}`,
             },
-            max: label === "year" ? {
-              value: currentYear - 18,
-              message: "You must be at least 18 years old to use Intim Flort"
-            }: {}
+            max:
+              label === "year"
+                ? {
+                    value: currentYear - 18,
+                    message:
+                      "You must be at least 18 years old to use Intim Flort",
+                  }
+                : {},
           }}
           render={({ field }) => (
             <Select

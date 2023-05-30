@@ -1,17 +1,4 @@
-import { Controller } from "react-hook-form";
-
 import LinearProgress from "@mui/material/LinearProgress";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import { useEffect, useRef, useState } from "react";
-import SelectAge from "../muiComponents/SelectAge/SelectAge";
-
-import Username from "../muiComponents/Username";
-import UserPassword from "../muiComponents/UserPassword";
-import UserLocation from "../muiComponents/UserLocation/UserLocation";
 
 import birthday_red_icon from "../../images/icons/step_icons/birthday_red_icon.png";
 import birthday_gray_icon from "../../images/icons/step_icons/birthday_gray_icon.png";
@@ -26,10 +13,12 @@ import lock_red_icon from "../../images/icons/step_icons/lock_red_icon.png";
 import user_gray_icon from "../../images/icons/step_icons/user_gray_icon.png";
 import user_red_icon from "../../images/icons/step_icons/user_red_icon.png";
 import user_yellow_icon from "../../images/icons/step_icons/user_yellow_icon.png";
-import SelectGender from "../muiComponents/SelectGender";
+import SelectGender from "../muiComponents/SelectGender/SelectGender";
 
-import AlertErrorMessage from "../AlertErrorMessage/AlertErrorMessage";
 import Dob from "../Dob/Dob";
+import Username from "../muiComponents/Username/Username";
+import UserPassword from "../muiComponents/UserPassword/UserPassword";
+import UserLocation from "../muiComponents/UserLocation/UserLocation";
 
 import "./RenderStep.css";
 import Title from "../Title/Title";
@@ -61,34 +50,19 @@ const stepIcons = [
   },
 ];
 
-const genderFieldStyle = {
-  border: `1px solid #F76448`,
-  borderRadius: "16px",
-  width: "514px",
-  height: "48px",
-  display: "grid",
-  justifyContent: "center",
-  marginBottom: "20px",
-
-  ".MuiButtonBase-root": {
-    display: "none",
-  },
-};
-
-const STEPS = {
+export const STEPS = {
   GENDER_SETP: 0,
   AGE_STEP: 1,
   LOCATION_STEP: 2,
   USERNAME_STEP: 3,
-  PASSWORD_STEP: 4,
+  CONFIRMATION_STEP: 4,
 };
 
-// #B2B3B5, #F76448
-
 export default function RenderStep(props) {
+  
   let linearProgressValue;
 
-  const { step, errors, control, setValue, watch } = props;
+  const { step, errors, control, setValue, gender, looking_for } = props;
 
   let currentStep;
 
@@ -98,13 +72,18 @@ export default function RenderStep(props) {
       currentStep = (
         <>
           <Title title="Your gender" />
-          <SelectGender control={control} name_props="gender" errors={errors} />
+          <SelectGender
+            control={control}
+            name_props="gender"
+            errors={errors}
+            gender={gender}
+          />
           <Title title="You are interested in" />
           <SelectGender
             control={control}
             name_props="looking_for"
             errors={errors}
-            watch={watch}
+            gender={looking_for}
           />
         </>
       );
@@ -121,7 +100,6 @@ export default function RenderStep(props) {
           </h2>
 
           <Dob errors={errors} control={control} />
-          
         </>
       );
       break;
@@ -150,7 +128,7 @@ export default function RenderStep(props) {
       );
       break;
     }
-    case STEPS.PASSWORD_STEP: {
+    case STEPS.CONFIRMATION_STEP: {
       linearProgressValue = 98;
       currentStep = (
         <>
@@ -168,7 +146,7 @@ export default function RenderStep(props) {
   return (
     <div>
       <div className="step-icons-wrapper">
-        {" "}
+        
         {stepIcons.map((icon, i) => {
           if (i === step) {
             return <img key={icon.red} src={icon.red} alt="" />;
@@ -182,6 +160,7 @@ export default function RenderStep(props) {
           }
         })}
       </div>
+      
       <LinearProgress
         sx={{
           width: "534px",

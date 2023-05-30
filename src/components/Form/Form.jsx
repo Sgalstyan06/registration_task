@@ -9,32 +9,33 @@ import "./Form.css";
 import { startRegistration, endRegistration } from "../../services/httpRequest";
 
 import logo from "../../images/logo.png";
-import RenderStep from "../RenderStep/RenderStep";
+
+import RenderStep, { STEPS } from "../RenderStep/RenderStep";
+
+const buttonStyle = {
+  bgcolor: "#F76448",
+  height: "48px",
+  fontFamily: "Public Sans",
+  fontStyle: "normal",
+  fontWeight: "500",
+  fontSize: "18px",
+  lineHeight: "26px",
+  color: "#FFFFFF",
+  borderRadius: "16px",
+};
 
 export default function Form() {
+
   const [step, setStep] = useState(0);
   const [userId, setUserId] = useState("");
   const [errorMessage, setErrorMesage] = useState("");
   const [successRegistration, setSuccessRegistration] = useState("");
 
-  const buttonStyle = {
-    bgcolor: "#F76448",
-    height: "48px",
-    fontFamily: "Public Sans",
-    fontStyle: "normal",
-    fontWeight: "500",
-    fontSize: "18px",
-    lineHeight: "26px",
-    color: "#FFFFFF",
-    borderRadius: "16px",
-  };
-
-  const {
+    const {
     handleSubmit,
     control,
     setValue,
     watch,
-    getValues,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -50,40 +51,54 @@ export default function Form() {
     mode: "onChange",
   });
 
+  const [gender, looking_for] = watch(["gender", "looking_for"])
+
   const onSubmit = async (data) => {
+
     data.DOB = `${data.year}-${data.month}-${data.day}`;
 
     const { day, year, month, username, ...sendingData } = data;
 
-    if (!userId && step === 3) {
+    if (!userId && step === STEPS.USERNAME_STEP) {
+
       try {
         const response = await startRegistration(username);
 
         if (response.Status === "ok") {
+
           setUserId(response.Data);
           setErrorMesage("");
           next();
+
         } else {
+
           setErrorMesage(response.Error.message);
         }
       } catch (e) {
-        setErrorMesage("Somethig went wrong");
+        setErrorMesage("Something went wrong");
       }
 
       return;
     }
-
-    if (step === 4) {
+    
+    if (step === STEPS.CONFIRMATION_STEP) {
+      
       try {
         const response = await endRegistration(userId, sendingData);
 
         if (response.Status === "ok") {
-          setSuccessRegistration("Your are succesfully registration");
+
+          setSuccessRegistration(
+            "Your registration has been successfully done"
+          );
+          setErrorMesage("");
+
         } else {
+
           setErrorMesage(response.Error.message);
         }
       } catch (e) {
-        setErrorMesage("Somethig went wrong");
+        setErrorMesage("Something went wrong");
       }
     }
 
@@ -99,8 +114,8 @@ export default function Form() {
     if (step === 0) return;
     setStep(step - 1);
   }
-  console.log("getva;", watch(["gender", "looking_for"]))
-  
+
+
   return (
     <div className="form-section">
       <div className="logo-wrapper">
@@ -113,7 +128,8 @@ export default function Form() {
           setValue={setValue}
           errors={errors}
           control={control}
-          watch={watch}
+          gender={gender}
+          looking_for={looking_for}
         />
         <div className="button-wrapper">
           <Button
@@ -126,6 +142,7 @@ export default function Form() {
                 bgcolor: "#F76448",
               },
             }}
+            disabled={!!successRegistration}
           >
             Next
           </Button>
@@ -141,11 +158,13 @@ export default function Form() {
               color: "black",
               ":hover": { border: "none", bgcolor: "#FFFFFF" },
             }}
+            disabled={!!successRegistration}
           >
             Back
           </Button>
         </div>
       </form>
+
       {errorMessage && <p className="error-message">{errorMessage}</p>}
       {successRegistration && (
         <p style={{ color: "green" }}>{successRegistration}</p>

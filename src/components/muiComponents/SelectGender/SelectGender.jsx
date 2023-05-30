@@ -1,13 +1,11 @@
-import * as React from "react";
-
 import { styled } from "@mui/material/styles";
-import RadioGroup, { useRadioGroup } from "@mui/material/RadioGroup";
+import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 
 import { Controller } from "react-hook-form";
 
-import AlertErrorMessage from "../AlertErrorMessage/AlertErrorMessage";
+import AlertErrorMessage from "../../AlertErrorMessage/AlertErrorMessage";
 
 const selectGenderStyle = {
   borderRadius: "16px",
@@ -27,6 +25,7 @@ const selectGenderStyle = {
 const StyledFormControlLabel = styled((props) => (
   <FormControlLabel {...props} />
 ))(({ checked }) => ({
+  
   ".MuiFormControlLabel-label": checked
     ? {
         border: `1px solid #F76448`,
@@ -41,22 +40,16 @@ const StyledFormControlLabel = styled((props) => (
 }));
 
 function MyFormControlLabel(props) {
-  const radioGroup = useRadioGroup();
-
+  
   let checked = false;
 
-  if (radioGroup) {
-    checked = radioGroup.value === props.value;
+  if (props.gender === props.label) {
+    checked = true;
   }
 
   return <StyledFormControlLabel checked={checked} {...props} />;
 }
-export default function SelectGender({
-  control,
-  name_props,
-  errors,
-  }) {
-
+export default function SelectGender({ control, name_props, errors, gender }) {
   return (
     <>
       <RadioGroup name="use-radio-group" sx={{ margin: "16px 0 24px" }}>
@@ -69,12 +62,13 @@ export default function SelectGender({
               message: `Please select your ${name_props}`,
             },
           }}
-          render={( {field} ) => (
+          render={({ field: { onChange } }) => (
             <MyFormControlLabel
-              {...field}
+              onChange={onChange}
               value="Female"
               label="Female"
               control={<Radio />}
+              gender={gender}
               sx={{
                 margin: 0,
 
@@ -86,8 +80,7 @@ export default function SelectGender({
                 },
               }}
             />
-          )
-          }
+          )}
         />
         <Controller
           name={name_props}
@@ -98,11 +91,12 @@ export default function SelectGender({
               message: `Please select who are you ${name_props}`,
             },
           }}
-          render={({ field }) => (
+          render={({ field: { onChange } }) => (
             <MyFormControlLabel
-              {...field}
+              onChange={onChange}
               value="Male"
               label="Male"
+              gender={gender}
               control={<Radio />}
               sx={{
                 margin: 0,

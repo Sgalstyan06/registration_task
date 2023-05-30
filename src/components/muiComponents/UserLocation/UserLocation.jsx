@@ -1,14 +1,15 @@
-import { Container, InputAdornment, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
+
 import { Controller } from "react-hook-form";
+
+import { InputAdornment, TextField } from "@mui/material";
 
 import { getLocation } from "../../../services/httpRequest";
 
 import search_icon from "../../../images/icons/searc_icon.png";
+import AlertErrorMessage from "../../AlertErrorMessage/AlertErrorMessage";
 
 import "./UserLocation.css";
-
-import AlertErrorMessage from "../../AlertErrorMessage/AlertErrorMessage";
 
 export default function UserLocation({ control, setValue, errors }) {
   const [selectLocation, setSelectLocation] = useState([]);
@@ -17,11 +18,11 @@ export default function UserLocation({ control, setValue, errors }) {
 
   useEffect(() => {
     let id;
-    if(locationValue !== ""){
+    if (locationValue !== "") {
       try {
         id = setTimeout(() => {
           const res = getLocation(locationValue);
-  
+
           res.then((response) => {
             setSelectLocation(response.Data);
             setShowLocationList("show");
@@ -30,9 +31,9 @@ export default function UserLocation({ control, setValue, errors }) {
       } catch (e) {
         throw new Error(e);
       }
-    }else{
-      setShowLocationList("hide");    }
-    
+    } else {
+      setShowLocationList("hide");
+    }
 
     return () => clearInterval(id);
   }, [locationValue]);
@@ -54,8 +55,7 @@ export default function UserLocation({ control, setValue, errors }) {
         rules={{
           required: {
             value: true,
-            message:
-              "location is required",
+            message: "Location is required",
           },
         }}
         render={({ field }) => {
@@ -82,7 +82,7 @@ export default function UserLocation({ control, setValue, errors }) {
                   fontWeight: 400,
                   fontSize: "14px",
                   lineHeight: "24px",
-                  color: "#212B36"
+                  color: "#212B36",
                 },
                 ".MuiOutlinedInput-notchedOutline": {
                   border: "1px solid #F76448",

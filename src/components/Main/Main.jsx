@@ -3,7 +3,7 @@ import "./Main.css";
 import background from "../../images/background.png";
 
 import Form from "../Form/Form";
-import Gallery from "../Gallery/Gallery";
+import MainValues from "../MainValues/MainValues";
 
 export default function Main() {
   return (
@@ -11,7 +11,7 @@ export default function Main() {
       style={{ backgroundImage: `url(${background})` }}
     >
       <Form />
-      <Gallery />
+      <MainValues />
     </main>
   );
 }

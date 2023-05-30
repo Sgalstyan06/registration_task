@@ -1,15 +1,17 @@
-import React from "react";
 import "./Footer.css";
+
 import logo from "../../images/logo.png";
 
-const currentYear = new Date().getFullYear()
+import { currentYear } from "../../components/Dob/Dob";
 
 export default function Footer() {
+  
   return (
     <footer>
       <div className="footer-logo">
         <img src={logo} alt="intimFlorts" />
       </div>
+
       <div className="footer-info">
         <span> Terms |</span>
         <span> Policy |</span>
@@ -17,7 +19,9 @@ export default function Footer() {
         <span> Help Center</span>
       </div>
 
-      <div className="copyRight">&copy; {currentYear} Intim Florts | All Rights Reserved.</div>
+      <div className="copyRight">
+        &copy; {currentYear} Intim Florts | All Rights Reserved.
+      </div>
     </footer>
   );
 }

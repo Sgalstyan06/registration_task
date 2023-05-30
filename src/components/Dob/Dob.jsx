@@ -1,15 +1,16 @@
 import SelectAge from "../muiComponents/SelectAge/SelectAge";
 
- const currentYear = new Date().getFullYear();
+export const currentYear = new Date().getFullYear();
 
 function numbersUpTo(max) {
+
   return Array.from(Array(max).keys()).map(
     (i) => `${i < 9 ? "0" : ""}${i + 1}`
   );
 }
 
 function yearsBackTo(count) {
-  
+
   return Array.from(Array(count).keys()).map((i) => `${currentYear - i}`);
 }
 
@@ -47,7 +48,9 @@ export default function Dob({ errors, control }) {
       {((errors.day || errors.month || errors.year?.type === "required") && (
         <p className="error-message">Please select your date of birthday</p>
       )) ||
-        (errors.year && <p className="error-message" >{errors.year.message} </p>)}
+        (errors.year && (
+          <p className="error-message">{errors.year.message} </p>
+        ))}
     </>
   );
 }

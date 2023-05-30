@@ -9,6 +9,7 @@ async function post(path, data) {
       body: JSON.stringify(data),
     }
   );
+
   return responce.json();
 }
 
@@ -21,9 +22,11 @@ export async function getLocation(search) {
 }
 
 export async function startRegistration(username) {
+
   return await post("registration/start", { username });
 }
 
 export async function endRegistration(userId, data) {
+  
   return await post(`registration/${userId}`, data);
 }

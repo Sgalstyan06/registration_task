@@ -1,10 +1,9 @@
 import OutlinedInput from "@mui/material/OutlinedInput";
-
 import FormControl from "@mui/material/FormControl";
 
 import { Controller } from "react-hook-form";
 
-import AlertErrorMessage from "../AlertErrorMessage/AlertErrorMessage";
+import AlertErrorMessage from "../../AlertErrorMessage/AlertErrorMessage";
 
 export default function UserPassword({ control, errors }) {
   return (

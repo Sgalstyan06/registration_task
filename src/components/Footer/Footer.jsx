@@ -2,7 +2,7 @@ import "./Footer.css";
 
 import logo from "../../images/logo.png";
 
-import { currentYear } from "../../components/Dob/Dob";
+import {currentYear} from "../../services/dob"
 
 export default function Footer() {
   

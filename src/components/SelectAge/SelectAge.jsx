@@ -5,6 +5,8 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
+import { validationRules } from "../../constants/validation";
+
 const makeStyle = {
   fontFamily: "Public Sans",
   fontStyle: "normal",
@@ -14,7 +16,7 @@ const makeStyle = {
   color: "#212B36",
 };
 
-export default function SelectAge({ label, options, control, currentYear }) {
+export default function SelectAge({ label, options, control}) {
   
   return (
     <>
@@ -45,20 +47,7 @@ export default function SelectAge({ label, options, control, currentYear }) {
         <Controller
           name={label}
           control={control}
-          rules={{
-            required: {
-              value: true,
-              message: `please select your birtday ${label}`,
-            },
-            max:
-              label === "year"
-                ? {
-                    value: currentYear - 18,
-                    message:
-                      "You must be at least 18 years old to use Intim Flort",
-                  }
-                : {},
-          }}
+          rules={validationRules.dob}
           render={({ field }) => (
             <Select
               placeholder="year"
@@ -86,3 +75,4 @@ export default function SelectAge({ label, options, control, currentYear }) {
     </>
   );
 }
+

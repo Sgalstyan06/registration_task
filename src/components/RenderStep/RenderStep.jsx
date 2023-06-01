@@ -10,20 +10,25 @@ import location_red_icon from "../../images/icons/step_icons/location_red_icon.p
 import location_yellow_icon from "../../images/icons/step_icons/location_yellow_icon.png";
 import lock_gray_icon from "../../images/icons/step_icons/lock_gray_icon.png";
 import lock_red_icon from "../../images/icons/step_icons/lock_red_icon.png";
+import lock_yellow_icon from "../../images/icons/step_icons/lock_yellow_icon.png";
 import user_gray_icon from "../../images/icons/step_icons/user_gray_icon.png";
 import user_red_icon from "../../images/icons/step_icons/user_red_icon.png";
 import user_yellow_icon from "../../images/icons/step_icons/user_yellow_icon.png";
-import SelectGender from "../muiComponents/SelectGender/SelectGender";
+import email_gray_incon from "../../images/icons/step_icons/email_gray_icon.png";
+import email_red_incon from "../../images/icons/step_icons/email_red_icon.png";
 
+import Title from "../Title/Title";
+import UserEmail from "../UserEmail.jsx/UserEmail";
+import useWindowSize from "../../services/hooks/useWindowSize";
 import Dob from "../Dob/Dob";
-import Username from "../muiComponents/Username/Username";
-import UserPassword from "../muiComponents/UserPassword/UserPassword";
-import UserLocation from "../muiComponents/UserLocation/UserLocation";
+import SelectGender from "../SelectGender/SelectGender";
+import Username from "../Username/Username";
+import UserPassword from "../UserPassword/UserPassword";
+import UserLocation from "../UserLocation/UserLocation";
 
 import "./RenderStep.css";
-import Title from "../Title/Title";
 
-const stepIcons = [
+export const stepIcons = [
   {
     yellow: choose_your_love_yellow_icon,
     red: choose_your_love_red_icon,
@@ -47,6 +52,11 @@ const stepIcons = [
   {
     gray: lock_gray_icon,
     red: lock_red_icon,
+    yellow: lock_yellow_icon,
+  },
+  {
+    gray: email_gray_incon,
+    red: email_red_incon,
   },
 ];
 
@@ -55,33 +65,44 @@ export const STEPS = {
   AGE_STEP: 1,
   LOCATION_STEP: 2,
   USERNAME_STEP: 3,
-  CONFIRMATION_STEP: 4,
+  PASSWORD_STEP: 4,
+  CONFIRMATION_STEP: 5,
 };
 
 export default function RenderStep(props) {
-  
-  let linearProgressValue;
+  const mobileSize = useWindowSize();
 
-  const { step, errors, control, setValue, gender, looking_for } = props;
+  const {
+    step,
+    errors,
+    control,
+    setValue,
+    gender,
+    looking_for,
+    ageValidationError,
+  } = props;
+
+  let linearProgressValue;
 
   let currentStep;
 
   switch (step) {
     case STEPS.GENDER_SETP: {
       linearProgressValue = 2;
+
       currentStep = (
         <>
           <Title title="Your gender" />
           <SelectGender
             control={control}
-            name_props="gender"
+            type="gender"
             errors={errors}
             gender={gender}
           />
           <Title title="You are interested in" />
           <SelectGender
             control={control}
-            name_props="looking_for"
+            type="looking_for"
             errors={errors}
             gender={looking_for}
           />
@@ -91,7 +112,8 @@ export default function RenderStep(props) {
     }
 
     case STEPS.AGE_STEP: {
-      linearProgressValue = 27;
+      linearProgressValue = mobileSize ? 23 : 27;
+
       currentStep = (
         <>
           <Title title="Your age" />
@@ -99,14 +121,19 @@ export default function RenderStep(props) {
             You must be at least 18 years old to use Intim Flort
           </h2>
 
-          <Dob errors={errors} control={control} />
+          <Dob
+            errors={errors}
+            control={control}
+            ageValidationError={ageValidationError}
+          />
         </>
       );
       break;
     }
 
     case STEPS.LOCATION_STEP: {
-      linearProgressValue = 52;
+      linearProgressValue = mobileSize ? 41.5 : 52;
+
       currentStep = (
         <>
           <Title title="Your location" />
@@ -119,7 +146,9 @@ export default function RenderStep(props) {
       break;
     }
     case STEPS.USERNAME_STEP: {
-      linearProgressValue = 75;
+
+      linearProgressValue = mobileSize ? 60 : 75;
+
       currentStep = (
         <>
           <Title title="Create a username" />
@@ -128,8 +157,10 @@ export default function RenderStep(props) {
       );
       break;
     }
-    case STEPS.CONFIRMATION_STEP: {
-      linearProgressValue = 98;
+    case STEPS.PASSWORD_STEP: {
+
+      linearProgressValue = mobileSize ? 78.5 : 98;
+
       currentStep = (
         <>
           <Title title="Create a password" />
@@ -138,7 +169,18 @@ export default function RenderStep(props) {
       );
       break;
     }
+    case STEPS.CONFIRMATION_STEP: {
 
+      linearProgressValue = 98;
+
+      currentStep = (
+        <>
+          <Title title="Add email address" />
+          <UserEmail control={control} errors={errors} />
+        </>
+      );
+      break;
+    }
     default:
       break;
   }
@@ -146,21 +188,27 @@ export default function RenderStep(props) {
   return (
     <div>
       <div className="step-icons-wrapper">
-        
+
         {stepIcons.map((icon, i) => {
+          if ( !mobileSize && i === stepIcons.length - 1 ) {
+            if (step === STEPS.CONFIRMATION_STEP) {
+              return <img key={icon.red} src={icon.red} alt="icon" />;
+            }
+            return;
+          }
           if (i === step) {
-            return <img key={icon.red} src={icon.red} alt="" />;
+            return <img key={icon.red} src={icon.red} alt="icon" />;
           }
           if (i < step) {
-            return <img key={icon.yellow} src={icon.yellow} alt="" />;
+            return <img key={icon.yellow} src={icon.yellow} alt="icon" />;
           }
 
           if (i > step) {
-            return <img key={icon.gray} src={icon.gray} alt="" />;
+            return <img key={icon.gray} src={icon.gray} alt="icon" />;
           }
         })}
       </div>
-      
+
       <LinearProgress
         sx={{
           width: "534px",
@@ -180,7 +228,6 @@ export default function RenderStep(props) {
         value={linearProgressValue}
         color="secondary"
       />
-
       <div className="input-wrapper">{currentStep}</div>
     </div>
   );

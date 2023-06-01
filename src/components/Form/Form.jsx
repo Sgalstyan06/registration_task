@@ -12,6 +12,8 @@ import logo from "../../images/logo.png";
 
 import RenderStep, { STEPS } from "../RenderStep/RenderStep";
 
+import { underAgeValidate } from "../../services/dob";
+
 const buttonStyle = {
   bgcolor: "#F76448",
   height: "48px",
@@ -25,13 +27,14 @@ const buttonStyle = {
 };
 
 export default function Form() {
-
   const [step, setStep] = useState(0);
   const [userId, setUserId] = useState("");
   const [errorMessage, setErrorMesage] = useState("");
   const [successRegistration, setSuccessRegistration] = useState("");
 
-    const {
+  const [ageValidationError, setAgeValidationError] = useState(false);
+
+  const {
     handleSubmit,
     control,
     setValue,
@@ -47,31 +50,40 @@ export default function Form() {
       location: "",
       username: "",
       password: "",
+      email: ""
     },
     mode: "onChange",
   });
 
-  const [gender, looking_for] = watch(["gender", "looking_for"])
+  const [gender, looking_for] = watch(["gender", "looking_for"]);
 
   const onSubmit = async (data) => {
-
+    
     data.DOB = `${data.year}-${data.month}-${data.day}`;
 
     const { day, year, month, username, ...sendingData } = data;
 
-    if (!userId && step === STEPS.USERNAME_STEP) {
+    if (step === STEPS.AGE_STEP) {
+      const birthday = watch(["year", "month", "day"]).join("-");
+      
+      if (underAgeValidate(birthday) < 18) {
+        
+        setAgeValidationError(true);
+        return;
+      } else {
+        setAgeValidationError(false);
+      }
+    }
 
+    if (!userId && step === STEPS.USERNAME_STEP) {
       try {
         const response = await startRegistration(username);
 
         if (response.Status === "ok") {
-
           setUserId(response.Data);
           setErrorMesage("");
           next();
-
         } else {
-
           setErrorMesage(response.Error.message);
         }
       } catch (e) {
@@ -80,21 +92,17 @@ export default function Form() {
 
       return;
     }
-    
+
     if (step === STEPS.CONFIRMATION_STEP) {
-      
       try {
         const response = await endRegistration(userId, sendingData);
 
         if (response.Status === "ok") {
-
           setSuccessRegistration(
             "Your registration has been successfully done"
           );
           setErrorMesage("");
-
         } else {
-
           setErrorMesage(response.Error.message);
         }
       } catch (e) {
@@ -106,7 +114,7 @@ export default function Form() {
   };
 
   function next() {
-    if (step > 3) return;
+    if (step > 4) return;
     setStep(step + 1);
   }
 
@@ -115,60 +123,68 @@ export default function Form() {
     setStep(step - 1);
   }
 
-
   return (
-    <div className="form-section">
-      <div className="logo-wrapper">
-        <img src={logo} alt="Intim Florts" />
-      </div>
-
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <RenderStep
-          step={step}
-          setValue={setValue}
-          errors={errors}
-          control={control}
-          gender={gender}
-          looking_for={looking_for}
-        />
-        <div className="button-wrapper">
-          <Button
-            variant="contained"
-            fullWidth
-            type="submit"
-            sx={{
-              ...buttonStyle,
-              ":hover": {
-                bgcolor: "#F76448",
-              },
-            }}
-            disabled={!!successRegistration}
-          >
-          {step === STEPS.CONFIRMATION_STEP ? "Complete" : "Next"}  
-          </Button>
-
-          <Button
-            variant="outlined"
-            fullWidth
-            onClick={previous}
-            sx={{
-              ...buttonStyle,
-              border: "none",
-              bgcolor: "#FFFFFF",
-              color: "black",
-              ":hover": { border: "none", bgcolor: "#FFFFFF" },
-            }}
-            disabled={!!successRegistration}
-          >
-            Back
-          </Button>
+    <div className="outer-form">
+      <div className="form-section">
+        <div className="logo-wrapper">
+          <img src={logo} alt="Intim Florts" />
         </div>
-      </form>
 
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-      {successRegistration && (
-        <p style={{ color: "green" }}>{successRegistration}</p>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <RenderStep
+            step={step}
+            setValue={setValue}
+            errors={errors}
+            control={control}
+            gender={gender}
+            looking_for={looking_for}
+            ageValidationError={ageValidationError}
+          />
+          <div className="button-wrapper">
+            <Button
+              variant="contained"
+              fullWidth
+              type="submit"
+              sx={{
+                ...buttonStyle,
+                ":hover": {
+                  bgcolor: "#F76448",
+                },
+              }}
+              disabled={!!successRegistration}
+            >
+              {step === STEPS.CONFIRMATION_STEP ? "Complete" : "Next"}
+            </Button>
+
+            <Button
+              variant="outlined"
+              fullWidth
+              onClick={previous}
+              sx={{
+                ...buttonStyle,
+                border: "none",
+                bgcolor: "#FFFFFF",
+                color: "black",
+                ":hover": { border: "none", bgcolor: "#FFFFFF" },
+              }}
+              disabled={!!successRegistration}
+            >
+              Back
+            </Button>
+          </div>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          {successRegistration && (
+            <p style={{ color: "green" }}>{successRegistration}</p>
+          )}
+        </form>
+      </div>
+      {step === STEPS.GENDER_SETP && (
+        <div className="already-sign-up">
+          Already have an account? <span>Log In</span>
+        </div>
       )}
     </div>
   );
 }
+
+

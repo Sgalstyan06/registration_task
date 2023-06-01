@@ -5,7 +5,9 @@ import Radio from "@mui/material/Radio";
 
 import { Controller } from "react-hook-form";
 
-import AlertErrorMessage from "../../AlertErrorMessage/AlertErrorMessage";
+import AlertErrorMessage from "../AlertErrorMessage/AlertErrorMessage";
+
+import { validationRules } from "../../constants/validation";
 
 const selectGenderStyle = {
   borderRadius: "16px",
@@ -49,19 +51,15 @@ function MyFormControlLabel(props) {
 
   return <StyledFormControlLabel checked={checked} {...props} />;
 }
-export default function SelectGender({ control, name_props, errors, gender }) {
+export default function SelectGender({ control, type, errors, gender }) {
+
   return (
     <>
       <RadioGroup name="use-radio-group" sx={{ margin: "16px 0 24px" }}>
         <Controller
-          name={name_props}
+          name={type}
           control={control}
-          rules={{
-            required: {
-              value: true,
-              message: `Please select your ${name_props}`,
-            },
-          }}
+          rules={validationRules[type]}
           render={({ field: { onChange } }) => (
             <MyFormControlLabel
               onChange={onChange}
@@ -71,7 +69,6 @@ export default function SelectGender({ control, name_props, errors, gender }) {
               gender={gender}
               sx={{
                 margin: 0,
-
                 ".MuiButtonBase-root": {
                   display: "none",
                 },
@@ -83,14 +80,9 @@ export default function SelectGender({ control, name_props, errors, gender }) {
           )}
         />
         <Controller
-          name={name_props}
+          name={type}
           control={control}
-          rules={{
-            required: {
-              value: true,
-              message: `Please select who are you ${name_props}`,
-            },
-          }}
+          rules={validationRules[type]}
           render={({ field: { onChange } }) => (
             <MyFormControlLabel
               onChange={onChange}
@@ -112,7 +104,7 @@ export default function SelectGender({ control, name_props, errors, gender }) {
         />
       </RadioGroup>
       <div style={{ position: "relative", top: "-15px" }}>
-        <AlertErrorMessage errors={errors} errorKey={name_props} />
+        <AlertErrorMessage errors={errors} errorKey={type} />
       </div>
     </>
   );

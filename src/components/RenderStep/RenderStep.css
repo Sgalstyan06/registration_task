@@ -1,7 +1,8 @@
 .step-icons-wrapper {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 14px;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 .input-wrapper {
@@ -30,6 +31,7 @@
   .select-age-wrapper {
     grid-template-columns: 1fr;
   }
+  
   .input-wrapper{
     padding: 0;
   }

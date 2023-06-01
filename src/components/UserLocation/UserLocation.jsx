@@ -4,12 +4,14 @@ import { Controller } from "react-hook-form";
 
 import { InputAdornment, TextField } from "@mui/material";
 
-import { getLocation } from "../../../services/httpRequest";
+import { getLocation } from "../../services/httpRequest";
 
-import search_icon from "../../../images/icons/searc_icon.png";
-import AlertErrorMessage from "../../AlertErrorMessage/AlertErrorMessage";
+import search_icon from "../../images/icons/searc_icon.png";
+import AlertErrorMessage from "../AlertErrorMessage/AlertErrorMessage";
 
 import "./UserLocation.css";
+
+import { validationRules } from "../../constants/validation";
 
 export default function UserLocation({ control, setValue, errors }) {
   const [selectLocation, setSelectLocation] = useState([]);
@@ -17,8 +19,11 @@ export default function UserLocation({ control, setValue, errors }) {
   const [locationValue, setLocationValue] = useState("");
 
   useEffect(() => {
+
     let id;
+
     if (locationValue !== "") {
+
       try {
         id = setTimeout(() => {
           const res = getLocation(locationValue);
@@ -27,8 +32,9 @@ export default function UserLocation({ control, setValue, errors }) {
             setSelectLocation(response.Data);
             setShowLocationList("show");
           });
-        }, 1200);
+        }, 900);
       } catch (e) {
+        
         throw new Error(e);
       }
     } else {
@@ -52,12 +58,7 @@ export default function UserLocation({ control, setValue, errors }) {
       <Controller
         name="location"
         control={control}
-        rules={{
-          required: {
-            value: true,
-            message: "Location is required",
-          },
-        }}
+        rules={validationRules.location}
         render={({ field }) => {
           const { name, onChange, ref, value } = field;
           return (
@@ -101,6 +102,7 @@ export default function UserLocation({ control, setValue, errors }) {
           );
         }}
       />
+      
       <ul className={`location-list ${showLocationList}`}>
         {selectLocation?.map((location) => (
           <li key={location} onClick={selectLocationFromList} value={location}>

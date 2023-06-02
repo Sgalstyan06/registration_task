@@ -24,6 +24,7 @@ const buttonStyle = {
   lineHeight: "26px",
   color: "#FFFFFF",
   borderRadius: "16px",
+  textTransform: "none"
 };
 
 export default function Form() {
@@ -166,6 +167,10 @@ export default function Form() {
                 bgcolor: "#FFFFFF",
                 color: "black",
                 ":hover": { border: "none", bgcolor: "#FFFFFF" },
+                "& .MuiTouchRipple-root span":{
+                  backgroundColor: '#dae5e6',
+                  opacity: .3,
+                },
               }}
               disabled={!!successRegistration}
             >

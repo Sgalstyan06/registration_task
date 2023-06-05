@@ -7,9 +7,7 @@ import MainValues from "../MainValues/MainValues";
 
 export default function Main() {
   return (
-    <main
-      style={{ backgroundImage: `url(${background})` }}
-    >
+    <main style={{ backgroundImage: `url(${background})` }}>
       <Form />
       <MainValues />
     </main>

@@ -26,13 +26,15 @@ export default function UserLocation({ control, setValue, errors }) {
 
       try {
         id = setTimeout(() => {
+
           const res = getLocation(locationValue);
 
           res.then((response) => {
             setSelectLocation(response.Data);
             setShowLocationList("show");
           });
-        }, 900);
+
+        }, 400);
       } catch (e) {
         
         throw new Error(e);

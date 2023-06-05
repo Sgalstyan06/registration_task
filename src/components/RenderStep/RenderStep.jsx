@@ -19,7 +19,6 @@ import email_red_incon from "../../images/icons/step_icons/email_red_icon.png";
 
 import Title from "../Title/Title";
 import UserEmail from "../UserEmail.jsx/UserEmail";
-import useWindowSize from "../../services/hooks/useWindowSize";
 import Dob from "../Dob/Dob";
 import SelectGender from "../SelectGender/SelectGender";
 import Username from "../Username/Username";
@@ -70,7 +69,6 @@ export const STEPS = {
 };
 
 export default function RenderStep(props) {
-  const mobileSize = useWindowSize();
 
   const {
     step,
@@ -88,6 +86,7 @@ export default function RenderStep(props) {
 
   switch (step) {
     case STEPS.GENDER_SETP: {
+      
       linearProgressValue = 2;
 
       currentStep = (
@@ -112,7 +111,8 @@ export default function RenderStep(props) {
     }
 
     case STEPS.AGE_STEP: {
-      linearProgressValue = mobileSize ? 23 : 27;
+      
+      linearProgressValue =  23;
 
       currentStep = (
         <>
@@ -132,7 +132,8 @@ export default function RenderStep(props) {
     }
 
     case STEPS.LOCATION_STEP: {
-      linearProgressValue = mobileSize ? 41.5 : 52;
+      
+      linearProgressValue =  42;
 
       currentStep = (
         <>
@@ -147,7 +148,7 @@ export default function RenderStep(props) {
     }
     case STEPS.USERNAME_STEP: {
 
-      linearProgressValue = mobileSize ? 60 : 75;
+      linearProgressValue = 60;
 
       currentStep = (
         <>
@@ -159,7 +160,7 @@ export default function RenderStep(props) {
     }
     case STEPS.PASSWORD_STEP: {
 
-      linearProgressValue = mobileSize ? 78.5 : 98;
+      linearProgressValue = 78.5;
 
       currentStep = (
         <>
@@ -190,15 +191,11 @@ export default function RenderStep(props) {
       <div className="step-icons-wrapper">
 
         {stepIcons.map((icon, i) => {
-          if ( !mobileSize && i === stepIcons.length - 1 ) {
-            if (step === STEPS.CONFIRMATION_STEP) {
-              return <img key={icon.red} src={icon.red} alt="icon" />;
-            }
-            return;
-          }
+
           if (i === step) {
             return <img key={icon.red} src={icon.red} alt="icon" />;
           }
+          
           if (i < step) {
             return <img key={icon.yellow} src={icon.yellow} alt="icon" />;
           }
@@ -206,6 +203,7 @@ export default function RenderStep(props) {
           if (i > step) {
             return <img key={icon.gray} src={icon.gray} alt="icon" />;
           }
+
         })}
       </div>
 

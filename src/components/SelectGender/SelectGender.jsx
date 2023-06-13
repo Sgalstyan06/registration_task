@@ -1,3 +1,5 @@
+import { Translate } from "react-translated";
+
 import { styled } from "@mui/material/styles";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -27,7 +29,6 @@ const selectGenderStyle = {
 const StyledFormControlLabel = styled((props) => (
   <FormControlLabel {...props} />
 ))(({ checked }) => ({
-  
   ".MuiFormControlLabel-label": checked
     ? {
         border: `1px solid #F76448`,
@@ -42,17 +43,15 @@ const StyledFormControlLabel = styled((props) => (
 }));
 
 function MyFormControlLabel(props) {
-  
   let checked = false;
 
-  if (props.gender === props.label) {
+  if (props.gender === props.value) {
     checked = true;
   }
 
   return <StyledFormControlLabel checked={checked} {...props} />;
 }
 export default function SelectGender({ control, type, errors, gender }) {
-
   return (
     <>
       <RadioGroup name="use-radio-group" sx={{ margin: "16px 0 24px" }}>
@@ -64,7 +63,7 @@ export default function SelectGender({ control, type, errors, gender }) {
             <MyFormControlLabel
               onChange={onChange}
               value="Female"
-              label="Female"
+              label={<Translate text="Female" />}
               control={<Radio />}
               gender={gender}
               sx={{
@@ -87,7 +86,7 @@ export default function SelectGender({ control, type, errors, gender }) {
             <MyFormControlLabel
               onChange={onChange}
               value="Male"
-              label="Male"
+              label={<Translate text="Male" />}
               gender={gender}
               control={<Radio />}
               sx={{

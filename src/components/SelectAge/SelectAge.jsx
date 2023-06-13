@@ -5,6 +5,8 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
+import { Translate } from "react-translated";
+
 import { validationRules } from "../../constants/validation";
 
 const makeStyle = {
@@ -42,7 +44,7 @@ export default function SelectAge({ label, options, control}) {
             transformOrigin: "-20px 25px",
           }}
         >
-          {label}
+          <Translate text={label} />
         </InputLabel>
         <Controller
           name={label}

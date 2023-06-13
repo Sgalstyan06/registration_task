@@ -1,6 +1,6 @@
 export const validationRules = {
   gender: { required: "Please select your gender" },
-  looking_for: { required: "Please select who are you looking for " },
+  looking_for: { required: "Please select who are you looking for" },
   dob: { required: "Please select your birtday" },
   location: {
     required: "Location is required",
@@ -32,11 +32,11 @@ export const validationRules = {
     },
   },
   email: {
-    required: "Email is required.",
+    required: "Email is required",
     pattern: {
       value:
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      message: "Please specify a valid email address.",
+      message: "Please specify a valid email address",
     },
   },
 };

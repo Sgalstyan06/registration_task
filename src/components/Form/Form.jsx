@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { Translate } from "react-translated";
+
 import { useForm } from "react-hook-form";
 
 import Button from "@mui/material/Button";
@@ -24,7 +26,7 @@ const buttonStyle = {
   lineHeight: "26px",
   color: "#FFFFFF",
   borderRadius: "16px",
-  textTransform: "none"
+  textTransform: "none",
 };
 
 export default function Form() {
@@ -51,7 +53,7 @@ export default function Form() {
       location: "",
       username: "",
       password: "",
-      email: ""
+      email: "",
     },
     mode: "onChange",
   });
@@ -59,16 +61,14 @@ export default function Form() {
   const [gender, looking_for] = watch(["gender", "looking_for"]);
 
   const onSubmit = async (data) => {
-    
     data.DOB = `${data.year}-${data.month}-${data.day}`;
 
     const { day, year, month, username, ...sendingData } = data;
 
     if (step === STEPS.AGE_STEP) {
       const birthday = watch(["year", "month", "day"]).join("-");
-      
+
       if (underAgeValidate(birthday) < 18) {
-        
         setAgeValidationError(true);
         return;
       } else {
@@ -154,7 +154,9 @@ export default function Form() {
               }}
               disabled={!!successRegistration}
             >
-              {step === STEPS.CONFIRMATION_STEP ? "Complete" : "Next"}
+              <Translate
+                text={step === STEPS.CONFIRMATION_STEP ? "Complete" : "Next"}
+              />
             </Button>
 
             <Button
@@ -167,29 +169,36 @@ export default function Form() {
                 bgcolor: "#FFFFFF",
                 color: "black",
                 ":hover": { border: "none", bgcolor: "#FFFFFF" },
-                "& .MuiTouchRipple-root span":{
-                  backgroundColor: '#dae5e6',
-                  opacity: .3,
+                "& .MuiTouchRipple-root span": {
+                  backgroundColor: "#dae5e6",
+                  opacity: 0.3,
                 },
               }}
               disabled={!!successRegistration}
             >
-              Back
+              <Translate text="Back" />
             </Button>
           </div>
-          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          {errorMessage && (
+            <p className="error-message">
+              <Translate text={errorMessage} />
+            </p>
+          )}
           {successRegistration && (
-            <p style={{ color: "green" }}>{successRegistration}</p>
+            <p style={{ color: "green" }}>
+              <Translate text={successRegistration} />
+            </p>
           )}
         </form>
       </div>
       {step === STEPS.GENDER_SETP && (
         <div className="already-sign-up">
-          Already have an account? <span>Log In</span>
+          <Translate text="Already have an account" />?{" "}
+          <span>
+            <Translate text="Log In" />
+          </span>
         </div>
       )}
     </div>
   );
 }
-
-

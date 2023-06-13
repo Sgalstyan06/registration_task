@@ -1,11 +1,14 @@
+import { Translate } from "react-translated";
+
 import "./Footer.css";
 
 import logo from "../../images/logo.png";
 
-import {currentYear} from "../../services/dob"
+import { currentYear } from "../../services/dob";
+
+const footerInfoContet = ["Terms", "Policy", "Cookie Policy", "Help Center"];
 
 export default function Footer() {
-  
   return (
     <footer>
       <div className="footer-logo">
@@ -13,14 +16,15 @@ export default function Footer() {
       </div>
 
       <div className="footer-info">
-        <span> Terms |</span>
-        <span> Policy |</span>
-        <span> Cookie Policy |</span>
-        <span> Help Center</span>
+        {footerInfoContet.map((item, i) => (
+          <span key={item + i}>
+            <Translate text={item} /> {i !== footerInfoContet.length - 1 && " | "}
+          </span>
+        ))}
       </div>
 
       <div className="copyRight">
-        &copy; {currentYear} Intim Florts | All Rights Reserved.
+        &copy; {currentYear} <Translate text="Intim Florts | All Rights Reserved" />
       </div>
     </footer>
   );

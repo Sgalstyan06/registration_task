@@ -1,3 +1,5 @@
+import { Translate } from "react-translated";
+
 import "./AlertErrorMessage.css";
 
 export default function AlertErrorMessage({ errors, errorKey }) {
@@ -5,7 +7,7 @@ export default function AlertErrorMessage({ errors, errorKey }) {
   return (
     <>
       {errors[errorKey] && (
-        <p className="error-message">{errors[errorKey].message}</p>
+        <p className="error-message"><Translate text={errors[errorKey].message} /></p>
       )}
     </>
   );

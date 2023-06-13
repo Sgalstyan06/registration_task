@@ -1,16 +1,18 @@
 import Input from "../Input/Input";
 import CheckBox from "../Checkbox/CheckBox";
 
+import { Translate } from "react-translated";
+
 import AlertErrorMessage from "../AlertErrorMessage/AlertErrorMessage";
 
 export default function UserEmail({ control, errors }) {
 
-  const label_1 = "18 years old";
+  const label_1 = <Translate text="18 years old" />;
   const label_2 = (
     <span>
-      I have read and accept the
-      <span className="green-text"> Terms of Service</span> and our
-      <span className="green-text"> Privacy Statement.</span>
+      <Translate text="I have read and accept the" />
+      <span className="green-text"> <Translate text="Terms of Service" /></span> and our
+      <span className="green-text"> <Translate text="Privacy Statement" /></span>
     </span>
   );
   

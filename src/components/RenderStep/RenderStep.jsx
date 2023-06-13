@@ -1,5 +1,7 @@
 import LinearProgress from "@mui/material/LinearProgress";
 
+import { Translate } from "react-translated";
+
 import birthday_red_icon from "../../images/icons/step_icons/birthday_red_icon.png";
 import birthday_gray_icon from "../../images/icons/step_icons/birthday_gray_icon.png";
 import birthday_yellow_icon from "../../images/icons/step_icons/birthday_yellow_icon.png";
@@ -69,7 +71,6 @@ export const STEPS = {
 };
 
 export default function RenderStep(props) {
-
   const {
     step,
     errors,
@@ -86,7 +87,6 @@ export default function RenderStep(props) {
 
   switch (step) {
     case STEPS.GENDER_SETP: {
-      
       linearProgressValue = 2;
 
       currentStep = (
@@ -111,14 +111,13 @@ export default function RenderStep(props) {
     }
 
     case STEPS.AGE_STEP: {
-      
-      linearProgressValue =  23;
+      linearProgressValue = 23;
 
       currentStep = (
         <>
           <Title title="Your age" />
           <h2 className="sub-title">
-            You must be at least 18 years old to use Intim Flort
+            <Translate text="You must be at least 18 years old to use Intim Flort" />
           </h2>
 
           <Dob
@@ -132,14 +131,13 @@ export default function RenderStep(props) {
     }
 
     case STEPS.LOCATION_STEP: {
-      
-      linearProgressValue =  42;
+      linearProgressValue = 42;
 
       currentStep = (
         <>
           <Title title="Your location" />
           <h2 className="sub-title">
-            Search location by city, country or zip code
+            <Translate text="Search location by city, country or zip code" />
           </h2>
           <UserLocation control={control} setValue={setValue} errors={errors} />
         </>
@@ -147,7 +145,6 @@ export default function RenderStep(props) {
       break;
     }
     case STEPS.USERNAME_STEP: {
-
       linearProgressValue = 60;
 
       currentStep = (
@@ -159,7 +156,6 @@ export default function RenderStep(props) {
       break;
     }
     case STEPS.PASSWORD_STEP: {
-
       linearProgressValue = 78.5;
 
       currentStep = (
@@ -171,7 +167,6 @@ export default function RenderStep(props) {
       break;
     }
     case STEPS.CONFIRMATION_STEP: {
-
       linearProgressValue = 98;
 
       currentStep = (
@@ -189,13 +184,11 @@ export default function RenderStep(props) {
   return (
     <div>
       <div className="step-icons-wrapper">
-
         {stepIcons.map((icon, i) => {
-
           if (i === step) {
             return <img key={icon.red} src={icon.red} alt="icon" />;
           }
-          
+
           if (i < step) {
             return <img key={icon.yellow} src={icon.yellow} alt="icon" />;
           }
@@ -203,7 +196,6 @@ export default function RenderStep(props) {
           if (i > step) {
             return <img key={icon.gray} src={icon.gray} alt="icon" />;
           }
-
         })}
       </div>
 

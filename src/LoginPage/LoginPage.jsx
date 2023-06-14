@@ -24,11 +24,22 @@ export default function LoginPage() {
         id="demo-simple-select"
         value={language}
         onChange={handleChange}
-        sx={{position: "absolute", top: "10px", right: "20px"}}
+        sx={{
+          position: "absolute",
+          top: "10px",
+          right: "20px",
+          height: "25px",
+
+          ".MuiSelect-select": {
+            fontSize: "12px",
+          },
+        }}
       >
-        <MenuItem value={"en"}>English</MenuItem>
-        <MenuItem value={"fr"}>France</MenuItem>
-        <MenuItem value={"de"}>German</MenuItem>
+        <MenuItem sx={{ fontSize: "12px", height: "25px" }} value={"en"}>
+          English
+        </MenuItem>
+        <MenuItem sx={{ fontSize: "12px", height: "25px" }} value={"fr"}>France</MenuItem>
+        <MenuItem sx={{ fontSize: "12px", height: "25px" }} value={"de"}>German</MenuItem>
       </Select>
       <Main />
       <Footer />

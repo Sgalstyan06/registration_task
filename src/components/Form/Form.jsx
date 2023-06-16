@@ -143,30 +143,33 @@ export default function Form() {
             watch={watch}
             ageValidationError={ageValidationError}
             isDisabled={(currnetFormValues) => {
-              
               const buttonState = currnetFormValues.every((item) => item);
               setDisableNextButton(!buttonState);
             }}
-            
           />
           <div className="button-wrapper">
-            <Button
-              variant="contained"
-              fullWidth
-              type="submit"
-              sx={{
-                ...buttonStyle,
-                ":hover": {
-                  bgcolor: "#F76448",
-                },
-              }}
-              disabled={!!successRegistration || disableNextButton}
-              
-            >
-              <Translate
-                text={step === STEPS.CONFIRMATION_STEP ? "Complete" : "Next"}
-              />
-            </Button>
+            
+              <Button
+                variant="contained"
+                fullWidth
+                type="submit"
+                sx={{
+                  ...buttonStyle,
+                  "@media (hover: none)": {
+                    "&:hover": { bgcolor: "rgba(0, 0, 0, 0.12)" },
+                  },
+
+                  "@media (hover: hover)": {
+                    "&:hover": { bgcolor: "#F76448" },
+                  },
+                }}
+                disabled={!!successRegistration || disableNextButton}
+              >
+                <Translate
+                  text={step === STEPS.CONFIRMATION_STEP ? "Complete" : "Next"}
+                />
+              </Button>
+            
 
             <Button
               variant="outlined"

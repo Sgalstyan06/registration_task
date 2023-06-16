@@ -46,14 +46,14 @@ export default function UserEmail({ control, errors, isDisabled, watch }) {
           label={label_1}
           control={control}
           errors={errors}
-          errorMessage="You must be older then 18 years"
+          errorMessage="You must be older than 18 years"
           name="acceptTerms"
         />
         <CheckBox
           label={label_2}
           control={control}
           errors={errors}
-          errorMessage="You must ugry with our terms"
+          errorMessage="You must accept our terms"
           name="ageTerms"
         />
       </div>

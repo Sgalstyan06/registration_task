@@ -12,18 +12,20 @@ export default function CheckBox({
   name,
 }) {
   return (
-    <label className="check-box-label">
-      {label}
-      <Controller
-        name={name}
-        control={control}
-        rules={{ required: errorMessage }}
-        render={({ field: { onChange } }) => (
-          <input type="checkbox" onChange={onChange} />
-        )}
-      />
-      <AlertErrorMessage errorKey={name} errors={errors} />
-      <span className="checkmark"></span>
-    </label>
+    <>
+      <label className="check-box-label">
+        {label}
+        <Controller
+          name={name}
+          control={control}
+          rules={{ required: errorMessage }}
+          render={({ field: { onChange } }) => (
+            <input type="checkbox" onChange={onChange} />
+          )}
+        />
+        <span className="checkmark"></span>
+        <AlertErrorMessage errorKey={name} errors={errors} />
+      </label>
+    </>
   );
 }

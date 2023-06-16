@@ -1,9 +1,10 @@
 .checkbox-wrapper {
-    margin-top: 20px;
+  margin-top: 20px;
+  position: relative;
 }
 
 .check-box-label {
-  font-size: 14px!important;
+  font-size: 14px !important;
   line-height: 24px;
   display: block;
   position: relative;
@@ -15,6 +16,11 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.check-box-label p {
+  padding: 0;
+  margin: 0;
 }
 
 .check-box-label input {
@@ -53,22 +59,25 @@
 }
 
 .green-text {
-    color: #2EC876;
+  color: #2ec876;
+}
+
+.terms-error-message {
+  position: absolute;
 }
 
 @media screen and (max-width: 780px) {
-    .checkbox-wrapper {
-        max-width: 420px;
-    }
+  .checkbox-wrapper {
+    max-width: 420px;
+  }
 
-    .checkbox-wrapper .check-box-label:last-child .checkmark:last-child{
-      top: 12px;
+  .checkbox-wrapper .check-box-label:last-child .checkmark:last-child {
+    top: 12px;
   }
 }
 
 @media screen and (max-width: 510px) {
-    .checkbox-wrapper {
-        max-width: 310px;
-    }
-    
+  .checkbox-wrapper {
+    max-width: 310px;
+  }
 }

@@ -20,11 +20,13 @@ export default function UserLocation({
   setValue,
   errors,
   isDisabled,
-  location,
+  watch,
 }) {
   const [selectLocation, setSelectLocation] = useState([""]);
   const [showLocationList, setShowLocationList] = useState("hide");
   const [locationValue, setLocationValue] = useState("");
+
+  const [location] = watch('location')
 
   useEffect(() => {
     let id;

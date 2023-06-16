@@ -3,8 +3,16 @@ import { Translate } from "react-translated";
 import SelectAge from "../SelectAge/SelectAge";
 
 import { dobData } from "../../services/dob";
+import { useEffect } from "react";
 
-export default function Dob({ errors, control, ageValidationError }) {
+export default function Dob({ errors, control, ageValidationError, isDisabled, watch }) {
+
+  const [day,month, year] = watch(["day", "month", "year"]);
+
+  useEffect(() => {
+    isDisabled([day, month, year])
+  }, [day, month, year])
+
   return (
     <>
       <div className="select-age-wrapper">

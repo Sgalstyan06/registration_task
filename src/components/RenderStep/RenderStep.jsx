@@ -29,6 +29,7 @@ import UserLocation from "../UserLocation/UserLocation";
 
 import "./RenderStep.css";
 import { useEffect } from "react";
+import GenderStep from "../GenderStep/GenderStep";
 
 export const stepIcons = [
   {
@@ -82,20 +83,6 @@ export default function RenderStep(props) {
     ageValidationError,
   } = props;
 
-  const {
-    gender,
-    looking_for,
-    day,
-    month,
-    year,
-    location,
-    username,
-    password,
-    email,
-    acceptTerms,
-    ageTerms,
-  } = watch();
-
   let linearProgressValue;
 
   let currentStep;
@@ -104,33 +91,19 @@ export default function RenderStep(props) {
     case STEPS.GENDER_SETP: {
       linearProgressValue = 2;
 
-      isDisabled([gender, looking_for]);
-
       currentStep = (
-        <>
-          <Title title="Your gender" />
-          <SelectGender
-            control={control}
-            type="gender"
-            errors={errors}
-            gender={gender}
-         />
-          <Title title="You are interested in" />
-          <SelectGender
-            control={control}
-            type="looking_for"
-            errors={errors}
-            gender={looking_for}
-          />
-        </>
+        <GenderStep
+          control={control}
+          errors={errors}
+          isDisabled={isDisabled}
+          watch={watch}
+        />
       );
       break;
     }
 
     case STEPS.AGE_STEP: {
       linearProgressValue = 23;
-
-      isDisabled([day, month, year]);
 
       currentStep = (
         <>
@@ -143,6 +116,8 @@ export default function RenderStep(props) {
             errors={errors}
             control={control}
             ageValidationError={ageValidationError}
+            isDisabled={isDisabled}
+            watch={watch}
           />
         </>
       );
@@ -159,7 +134,13 @@ export default function RenderStep(props) {
           <h2 className="sub-title">
             <Translate text="Search location by city, country or zip code" />
           </h2>
-          <UserLocation control={control} setValue={setValue} errors={errors} isDisabled={isDisabled} location={location} />
+          <UserLocation
+            control={control}
+            setValue={setValue}
+            errors={errors}
+            isDisabled={isDisabled}
+            watch={watch}
+            />
         </>
       );
       break;
@@ -167,12 +148,15 @@ export default function RenderStep(props) {
     case STEPS.USERNAME_STEP: {
       linearProgressValue = 60;
 
-      isDisabled([username]);
-
       currentStep = (
         <>
           <Title title="Create a username" />
-          <Username control={control} errors={errors} />
+          <Username
+            control={control}
+            errors={errors}
+            isDisabled={isDisabled}
+            watch={watch}
+          />
         </>
       );
       break;
@@ -180,12 +164,15 @@ export default function RenderStep(props) {
     case STEPS.PASSWORD_STEP: {
       linearProgressValue = 78.5;
 
-      isDisabled([password]);
-
       currentStep = (
         <>
           <Title title="Create a password" />
-          <UserPassword control={control} errors={errors} />
+          <UserPassword
+            control={control}
+            errors={errors}
+            isDisabled={isDisabled}
+            watch={watch}
+          />
         </>
       );
       break;
@@ -193,12 +180,15 @@ export default function RenderStep(props) {
     case STEPS.CONFIRMATION_STEP: {
       linearProgressValue = 98;
 
-      isDisabled([email, acceptTerms, ageTerms]);
-
       currentStep = (
         <>
           <Title title="Add email address" />
-          <UserEmail control={control} errors={errors} />
+          <UserEmail
+            control={control}
+            errors={errors}
+            isDisabled={isDisabled}
+            watch={watch}
+          />
         </>
       );
       break;

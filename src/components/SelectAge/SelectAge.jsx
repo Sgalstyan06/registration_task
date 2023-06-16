@@ -38,7 +38,7 @@ export default function SelectAge({ label, options, control}) {
         <InputLabel
           id="demo-simple-select-label"
           sx={{
-            left: "2px",
+            left: "3px",
             top: "-7px",
             ...makeStyle,
             transformOrigin: "-20px 25px",

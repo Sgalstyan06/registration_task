@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Translate } from "react-translated";
 
@@ -34,6 +34,7 @@ export default function Form() {
   const [userId, setUserId] = useState("");
   const [errorMessage, setErrorMesage] = useState("");
   const [successRegistration, setSuccessRegistration] = useState("");
+  const [disableNextButton, setDisableNextButton] = useState(true);
 
   const [ageValidationError, setAgeValidationError] = useState(false);
 
@@ -54,11 +55,13 @@ export default function Form() {
       username: "",
       password: "",
       email: "",
+      acceptTerms: false,
+      ageTerms: false,
     },
     mode: "onChange",
   });
 
-  const [gender, looking_for] = watch(["gender", "looking_for"]);
+  useEffect(() => {}, [step]);
 
   const onSubmit = async (data) => {
     data.DOB = `${data.year}-${data.month}-${data.day}`;
@@ -137,9 +140,14 @@ export default function Form() {
             setValue={setValue}
             errors={errors}
             control={control}
-            gender={gender}
-            looking_for={looking_for}
+            watch={watch}
             ageValidationError={ageValidationError}
+            isDisabled={(currnetFormValues) => {
+              
+              const buttonState = currnetFormValues.every((item) => item);
+              setDisableNextButton(!buttonState);
+            }}
+            
           />
           <div className="button-wrapper">
             <Button
@@ -152,7 +160,8 @@ export default function Form() {
                   bgcolor: "#F76448",
                 },
               }}
-              disabled={!!successRegistration}
+              disabled={!!successRegistration || disableNextButton}
+              
             >
               <Translate
                 text={step === STEPS.CONFIRMATION_STEP ? "Complete" : "Next"}
@@ -174,7 +183,7 @@ export default function Form() {
                   opacity: 0.3,
                 },
               }}
-              disabled={!!successRegistration}
+              disabled={!!successRegistration || step === 0}
             >
               <Translate text="Back" />
             </Button>

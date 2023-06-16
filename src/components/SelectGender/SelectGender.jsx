@@ -51,6 +51,7 @@ function MyFormControlLabel(props) {
 
   return <StyledFormControlLabel checked={checked} {...props} />;
 }
+
 export default function SelectGender({ control, type, errors, gender }) {
   return (
     <>

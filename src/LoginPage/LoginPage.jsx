@@ -35,11 +35,11 @@ export default function LoginPage() {
           },
         }}
       >
-        <MenuItem sx={{ fontSize: "12px", height: "25px" }} value={"en"}>
+        <MenuItem sx={{ fontSize: "12px" }} value={"en"}>
           English
         </MenuItem>
-        <MenuItem sx={{ fontSize: "12px", height: "25px" }} value={"fr"}>France</MenuItem>
-        <MenuItem sx={{ fontSize: "12px", height: "25px" }} value={"de"}>German</MenuItem>
+        <MenuItem sx={{ fontSize: "12px" }} value={"fr"}>France</MenuItem>
+        <MenuItem sx={{ fontSize: "12px" }} value={"de"}>German</MenuItem>
       </Select>
       <Main />
       <Footer />

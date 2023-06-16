@@ -15,8 +15,14 @@ import "./UserLocation.css";
 
 import { validationRules } from "../../constants/validation";
 
-export default function UserLocation({ control, setValue, errors }) {
-  const [selectLocation, setSelectLocation] = useState([]);
+export default function UserLocation({
+  control,
+  setValue,
+  errors,
+  isDisabled,
+  location,
+}) {
+  const [selectLocation, setSelectLocation] = useState([""]);
   const [showLocationList, setShowLocationList] = useState("hide");
   const [locationValue, setLocationValue] = useState("");
 
@@ -31,6 +37,12 @@ export default function UserLocation({ control, setValue, errors }) {
           res.then((response) => {
             setSelectLocation(response.Data);
             setShowLocationList("show");
+
+            if (response.Data.length > 0) {
+              isDisabled(["location"]);
+            } else {
+              isDisabled([""])
+            }
           });
         }, 400);
       } catch (e) {
@@ -38,10 +50,15 @@ export default function UserLocation({ control, setValue, errors }) {
       }
     } else {
       setShowLocationList("hide");
+      isDisabled([""]);
     }
 
     return () => clearInterval(id);
   }, [locationValue]);
+
+  useEffect(() => {
+    isDisabled([location]);
+  }, []);
 
   function selectLocationFromList(e) {
     setValue("location", e.target.innerHTML);

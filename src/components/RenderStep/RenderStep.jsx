@@ -28,6 +28,7 @@ import UserPassword from "../UserPassword/UserPassword";
 import UserLocation from "../UserLocation/UserLocation";
 
 import "./RenderStep.css";
+import { useEffect } from "react";
 
 export const stepIcons = [
   {
@@ -76,10 +77,24 @@ export default function RenderStep(props) {
     errors,
     control,
     setValue,
-    gender,
-    looking_for,
+    watch,
+    isDisabled,
     ageValidationError,
   } = props;
+
+  const {
+    gender,
+    looking_for,
+    day,
+    month,
+    year,
+    location,
+    username,
+    password,
+    email,
+    acceptTerms,
+    ageTerms,
+  } = watch();
 
   let linearProgressValue;
 
@@ -89,6 +104,8 @@ export default function RenderStep(props) {
     case STEPS.GENDER_SETP: {
       linearProgressValue = 2;
 
+      isDisabled([gender, looking_for]);
+
       currentStep = (
         <>
           <Title title="Your gender" />
@@ -97,7 +114,7 @@ export default function RenderStep(props) {
             type="gender"
             errors={errors}
             gender={gender}
-          />
+         />
           <Title title="You are interested in" />
           <SelectGender
             control={control}
@@ -113,6 +130,8 @@ export default function RenderStep(props) {
     case STEPS.AGE_STEP: {
       linearProgressValue = 23;
 
+      isDisabled([day, month, year]);
+
       currentStep = (
         <>
           <Title title="Your age" />
@@ -127,6 +146,7 @@ export default function RenderStep(props) {
           />
         </>
       );
+
       break;
     }
 
@@ -139,13 +159,15 @@ export default function RenderStep(props) {
           <h2 className="sub-title">
             <Translate text="Search location by city, country or zip code" />
           </h2>
-          <UserLocation control={control} setValue={setValue} errors={errors} />
+          <UserLocation control={control} setValue={setValue} errors={errors} isDisabled={isDisabled} location={location} />
         </>
       );
       break;
     }
     case STEPS.USERNAME_STEP: {
       linearProgressValue = 60;
+
+      isDisabled([username]);
 
       currentStep = (
         <>
@@ -158,6 +180,8 @@ export default function RenderStep(props) {
     case STEPS.PASSWORD_STEP: {
       linearProgressValue = 78.5;
 
+      isDisabled([password]);
+
       currentStep = (
         <>
           <Title title="Create a password" />
@@ -168,6 +192,8 @@ export default function RenderStep(props) {
     }
     case STEPS.CONFIRMATION_STEP: {
       linearProgressValue = 98;
+
+      isDisabled([email, acceptTerms, ageTerms]);
 
       currentStep = (
         <>

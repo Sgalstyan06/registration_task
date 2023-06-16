@@ -23,8 +23,8 @@ export default function UserEmail({ control, errors }) {
         <AlertErrorMessage errorKey={"email"} errors={errors} />
       </div>
       <div className="checkbox-wrapper">
-        <CheckBox label={label_1} />
-        <CheckBox label={label_2} />
+        <CheckBox label={label_1} control={control} errors={errors} errorMessage="You must be older then 18 years" name="acceptTerms" />
+        <CheckBox label={label_2} control={control} errors={errors} errorMessage="You must ugry with our terms" name="ageTerms" />
       </div>
     </div>
   );

@@ -4,6 +4,11 @@ export default {
     fr: "Suivante",
     de: "Nächste",
   },
+  'Complete': {
+    en: 'Complete',
+    fr: 'Complète',
+    de: 'Vollständig'
+  },
   Back: {
     en: "Back",
     fr: "Dos",
@@ -263,5 +268,10 @@ export default {
     en: 'Your registration has been successfully done',
     fr: 'Votre inscription a été effectuée avec succès',
     de: 'Ihre Registrierung wurde erfolgreich durchgeführt',
+  },
+  'Something went wrong': {
+    en: 'Something went wrong',
+    fr: "Quelque chose s'est mal passé",
+    de: 'Etwas ist schief gelaufen'
   }
 };

@@ -6,6 +6,7 @@
 }
 
 .input-wrapper {
+  max-width: 534px;
   padding: 0 10px;
   margin-top: 40px;
 }

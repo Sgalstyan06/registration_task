@@ -38,7 +38,7 @@ export default function SelectAge({ label, options, control}) {
         <InputLabel
           id="demo-simple-select-label"
           sx={{
-            left: "5px",
+            left: "2px",
             top: "-7px",
             ...makeStyle,
             transformOrigin: "-20px 25px",
@@ -63,7 +63,7 @@ export default function SelectAge({ label, options, control}) {
               {...field}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              label={label}
+              label={<Translate text={label} />}
             >
               {options.map((option) => (
                 <MenuItem key={option} value={option}>

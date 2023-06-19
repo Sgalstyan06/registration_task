@@ -177,7 +177,7 @@ export default function Form() {
               onClick={previous}
               sx={{
                 ...buttonStyle,
-                border: "none",
+                border: "none!important",
                 bgcolor: "#FFFFFF",
                 color: "black",
                 ":hover": { border: "none", bgcolor: "#FFFFFF" },
